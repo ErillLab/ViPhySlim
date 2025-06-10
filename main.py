@@ -13,10 +13,7 @@ if rank == 0:
     preprocessing.preprocessing()
 comm.Barrier()
 
-if preprocessing.bootstrapping > 0:
-    algorithm_bootstrap.algorithm()
-else:
-    algorithm.algorithm
+algorithm_bootstrap.algorithm()
 
 if rank == 0:
     end = time.time()
