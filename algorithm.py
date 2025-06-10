@@ -54,8 +54,6 @@ def distance_calculator(distance_formula, h_total, i_xy, lambda_xy):
     This function is parallelized with MPI to efficiently handle large genome datasets.
 """
 def algorithm():
-    start = time.time()
-
     genomes = []
     for g in os.listdir(preprocessing.translated_path):
         if g.endswith(".fasta"):
@@ -199,6 +197,3 @@ def algorithm():
             if preprocessing.generate_image:
                 Phylo.draw(tree, do_show=False, axes=ax)
                 plt.savefig(f"Output/{preprocessing.output_file_prefix}_tree.png")
-
-        end = time.time()
-        print(f"Runtime: {end - start} seconds")
