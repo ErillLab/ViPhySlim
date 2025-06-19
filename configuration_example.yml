@@ -1,0 +1,59 @@
+# YAML Configuration Filename: configuration.yml
+input_parameters:
+  # List of NCBI accession numbers.
+  accession_numbers:
+    - NC_055061.1
+    - JX869059.2
+
+  # Path to the local directory where the genome files (in FASTA or GenBank format) are stored.
+  genomes_path: "C:/Users/username/Project/Genomes"
+
+output_parameters:
+  # Name of the  output file name (without extension).
+  output_file_name: "phylo_results"
+
+operational_parameters:
+  # Directory where temporary files and intermediate results will be stored during execution.
+  working_path: "C:/Users/username/Project/WorkingDirectory"
+
+  # Whether to delete the contents of the working directory after the run.
+  # Set to true to keep the folder clean.
+  erase_working_folder: True
+
+algorithm_parameters:
+  # Distance formula used in the GBDP calculation.
+  # Common options: "d0", "d4" or "d6".
+  distance_formula: "d6"
+
+  # Number of bootstrap replicates to perform for tree support values.
+  # Set to 0 to skip bootstrapping.
+  bootstrap_replicates: 0
+
+tree_parameters:
+  # Whether to generate a phylogenetic tree from the distance matrix.
+  generate_tree: True
+
+  # Whether to root the resulting phylogenetic tree.
+  root_tree: False
+
+  # Whether to use accession numbers as leaf names in the tree.
+  # If false, genome names will be used.
+  accession_name: False
+
+  # Whether to generate a graphical image of the tree (PNG).
+  generate_image: False
+
+BLAST_parameters:
+  # E-value threshold for BLAST hits.
+  e_value: 0.001
+
+  # Word size for BLAST alignment. 
+  # Recomendation: 3 for nucleotides.
+  word_size: 3
+
+  # Set to 0 to disable filtering by positives; 1 to activate.
+  positives: 0
+
+entrez_parameters:
+  # Email address used for Entrez queries (required by NCBI).
+  user_email: "user@example.com"
