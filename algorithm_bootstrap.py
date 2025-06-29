@@ -91,6 +91,8 @@ def algorithm():
     n = len(genomes)
     distance_matrix = np.zeros((n, n))
     names = [os.path.basename(g).split(".fasta")[0] for g in genomes]
+    
+    tree_names = names if preprocessing.accession_name else preprocessing.accession_names
 
     if rank == 0:
         tasks = [(i, j) for i in range(n) for j in range(i + 1, n)]
@@ -206,11 +208,6 @@ def algorithm():
                 writer.writerow(row)
 
         if preprocessing.generate_tree:
-            if not preprocessing.accession_name:
-                tree_names = preprocessing.accession_names
-            else:
-                tree_names = names
-
             triangle = []
             for i in range(n):
                 triangle.append([float(distance_matrix[i][j]) for j in range(i + 1)])
@@ -246,6 +243,7 @@ def algorithm():
 
             for worker_rank in range(1, size):
                 comm.send(names, dest=worker_rank, tag=0)
+                comm.send(tree_names, dest=worker_rank, tag=99)
                 comm.send(vector_pairs, dest=worker_rank, tag=1)
                 comm.send(replicas_por_worker[worker_rank - 1], dest=worker_rank, tag=2)
                 comm.send(preprocessing.distance_formula, dest=worker_rank, tag=3)
@@ -259,6 +257,7 @@ def algorithm():
 
         else:
             names = comm.recv(source=0, tag=0)
+            tree_names = comm.recv(source=0, tag=99)
             vector_pairs = comm.recv(source=0, tag=1)
             num_replicas = comm.recv(source=0, tag=2)
             distance_formula = comm.recv(source=0, tag=3)
@@ -302,7 +301,8 @@ def algorithm():
                 triangle = []
                 for i in range(n):
                     triangle.append([float(bs_distance_matrix[i][j]) for j in range(i + 1)])
-                dm = DistanceMatrix(names, triangle)
+                
+                dm = DistanceMatrix(tree_names, triangle)
                 tree = DistanceTreeConstructor().nj(dm)
                 
                 for node in tree.get_nonterminals():
