@@ -55,7 +55,7 @@ pip install -r requirements.txt
 mpiexec -np <num_processes> python main.py
 ```
 
-## Example
+### Example
 ```bash
 mpiexec -np 5 python main.py
 ```
