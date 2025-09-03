@@ -50,15 +50,22 @@ source viphyslim-env/bin/activate
 pip install -r requirements.txt
 ```
 
-## Usage 
+## Usage
+Type of execution: "parallel":
 ```bash
 mpiexec -np <num_processes> python main.py
 ```
-
 ### Example
 ```bash
 mpiexec -np 5 python main.py
 ```
+
+Type of execution: "serial":
+```bash
+python main.py
+```
+
+**Note:** When running the code, make sure the execution mode (parallel or serial) corresponds to the setting chosen in the configuration file.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
