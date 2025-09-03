@@ -2,6 +2,7 @@ import os
 from Bio import Entrez, SeqIO
 import yaml
 import shutil
+from memory_profiler import profile
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio.Blast.Applications import NcbimakeblastdbCommandline
@@ -22,6 +23,7 @@ with open(yaml_file, "r") as file:
     output_file_prefix = document["output_parameters"]["output_file_name"]
     erase_working_folder = document["operational_parameters"]["erase_working_folder"]
     accessions = document["input_parameters"]["accession_numbers"]
+    execution_type = document["input_parameters"]["execution_type"]
     
     distance_formula = document['algorithm_parameters']['distance_formula']
     bootstrapping = document['algorithm_parameters']['bootstrap_replicates']
