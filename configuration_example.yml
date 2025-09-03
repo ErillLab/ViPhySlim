@@ -8,6 +8,9 @@ input_parameters:
   # Path to the local directory where the genome files (in FASTA or GenBank format) are stored.
   genomes_path: "C:/Users/username/Project/Genomes"
 
+  # Type of execution: "parallel" to run tasks concurrently, "serial" to run tasks sequentially.
+  execution_type: "parallel"
+
 output_parameters:
   # Name of the  output file name (without extension).
   output_file_name: "phylo_results"
