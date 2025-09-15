@@ -28,7 +28,18 @@ Inferring the evolutionary relationships of viruses is a challenging task. Unlik
 - Pairwise genome distance computation  
 - MPI-based parallel processing for high-throughput scalability  
 - Output compatible with phylogenetic tree building tools  
-- Easily deployable via `venv` or Conda (BioConda channel coming soon)  
+- Easily deployable via `venv` or Conda (BioConda channel coming soon)
+
+## Distance Metrics
+
+ViPhySlim implements **whole-genome distance estimation** using the **Genome BLAST Distance Phylogeny (GBDP)** approach. After computing BLASTp alignments between translated viral genomes, distances are calculated using one of three formulas:
+
+- **d0**: Proportion of the genome covered by high-scoring segment pairs (HSPs).  
+- **d4**: Fraction of identical amino acid pairs within HSPs relative to the total aligned length. This measure is more robust when working with incomplete genomes.  
+- **d6**: Fraction of identical amino acid pairs relative to the entire genome size. This metric preserves the highest amount of evolutionary information.  
+
+The choice of distance depends on the dataset characteristics and the research focus.  
+By default, **d6** is recommended for complete genomes, while **d4** is more reliable for fragmented or incomplete assemblies.
 
 ## Installation
 
@@ -39,15 +50,10 @@ git clone https://github.com/ErillLab/ViPhySlim.git
 cd ViPhySlim
 ```
 
-### 2. Create and activate a virtual environment
+### 2. Create and activate the Conda environment
 ```bash
-python3 -m venv viphyslim-env
-source viphyslim-env/bin/activate
-```
-
-### 3. Install dependencies 
-```bash
-pip install -r requirements.txt
+conda env create -f viphyslim_environment.yml
+conda activate viphyslim
 ```
 
 ## Usage
